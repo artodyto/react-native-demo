@@ -1,17 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   Platform,
   StatusBar,
   TouchableOpacity,
   Text,
+  ActivityIndicator,
+  View,
 } from "react-native";
 import { WebView } from "react-native-webview";
-
 import { Ionicons } from "@expo/vector-icons";
 
 export default function WebViewScreen({ navigation }) {
   const statusBarHeight = StatusBar.currentHeight;
+  const [webViewLoaded, setWebViewLoaded] = useState(false);
+
+  const ActivityIndicatorElement = () => {
+    //making a view to show to while loading the webpage
+    return (
+      <ActivityIndicator
+        color="#009688"
+        size="large"
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      />
+    );
+  };
+
   return (
     <SafeAreaView
       style={{
@@ -41,10 +59,14 @@ export default function WebViewScreen({ navigation }) {
           back to main menu
         </Text>
       </TouchableOpacity>
-      <WebView
-        source={{ uri: "https://store.iloilosupermart.com" }}
-        style={{ flex: 1 }}
-      />
+      <View style={{ flex: 1, backgroundColor: "red" }}>
+        <WebView
+          source={{ uri: "https://store.iloilosupermart.com" }}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          startInLoadingState={true}
+        />
+      </View>
     </SafeAreaView>
   );
 }

@@ -5,6 +5,8 @@ import CardView from "../components/CardView";
 import * as Linking from "expo-linking";
 
 export default function MainMenu({ navigation }) {
+  const [links, setLinks] = useState("");
+
   const handleOpenUrl = (url) => {
     _handleUrl(url);
   };
@@ -34,10 +36,7 @@ export default function MainMenu({ navigation }) {
       queryParams: { hello: "world", goodbye: "now" },
     });
 
-    console.log(redirectUrl);
-
-    // exp://192.168.1.11:19000/deeplinking
-    // exp://192.168.1.11:19000/?hello=world&goodbye=now
+    setLinks(redirectUrl);
 
     Linking.getInitialURL().then((url) => {
       handleOpenUrl(url);
@@ -61,25 +60,24 @@ export default function MainMenu({ navigation }) {
         marginRight: 20,
       }}
     >
-      {/* <Text>{url}</Text>
-      <Text>{link}</Text> */}
       <CardView
         navigation={navigation}
         title="Change Brightness Test"
         navigateTo="FirstScreen"
       />
 
-      {/* <CardView
-        navigation={navigation}
-        title="Web View"
-        navigateTo="WebViewScreen"
-      /> */}
-
-      {/* <CardView
+      <CardView
         navigation={navigation}
         title="Deep Linking"
         navigateTo="DeepLinkingScreen"
-      /> */}
+      />
+
+      <CardView
+        navigation={navigation}
+        title="Web View"
+        navigateTo="WebViewScreen"
+      />
+      {/* <Text>{links}</Text> */}
     </SafeAreaView>
   );
 }
